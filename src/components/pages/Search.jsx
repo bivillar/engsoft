@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
 import Title from "../Title";
+import Filter from "../Filter";
 
 class search extends Component {
   state = {
@@ -12,6 +13,7 @@ class search extends Component {
     return (
       <React.Fragment>
         <Title title={this.state.title} subtitle={this.state.subtitle} />
+        <Filter />
       </React.Fragment>
     );
   }
