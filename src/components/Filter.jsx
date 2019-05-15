@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { InputGroup, Form, FormControl, Button } from "react-bootstrap";
+import { InputGroup, FormControl, Button } from "react-bootstrap";
 
 class Filter extends Component {
   state = {
     filter: "",
     mensagem: ""
   };
+
+  slides = ["pera", "maça", "abacaxi", "uva", "melancia"];
 
   constructor(props) {
     super(props);
@@ -14,7 +16,7 @@ class Filter extends Component {
     };
   }
 
-  handleChange = e => {
+  _handleChange = e => {
     this.setState({
       filter: e.target.value
     });
@@ -26,31 +28,64 @@ class Filter extends Component {
     }
   };
 
+  _handleClick = e => {
+    this.search();
+  };
+
+  busca(fruit) {
+    var promise = new Promise((resolve, reject) => {
+      if (this.slides.length > 0) {
+        this.slides.forEach((slide, index) => {
+          if (slide.toUpperCase() === fruit.toUpperCase()) {
+            resolve(index + 1);
+          }
+        });
+        resolve(-1);
+      } else {
+        reject(Error("Array vazio"));
+      }
+    });
+    return promise;
+  }
+
   search() {
-    this.setState({
-      mensagem: "PESQUISOU:" + this.state.filter
+    this.busca(this.state.filter).then(value => {
+      if (value >= 0) {
+        this.setState({
+          mensagem: "achou " + value
+        });
+      } else {
+        this.setState({
+          mensagem: "nao achou"
+        });
+      }
     });
   }
 
   render() {
     return (
-      <div class="container">
+      <div className="container">
         <InputGroup className="mb-3">
           <FormControl
             placeholder="Insira uma palavra ou frase..."
             type="text"
             id="slides-search"
-            class="form-control ds-input"
-            autocomplete="off"
+            className="form-control ds-input"
+            autoComplete="off"
             apellcheck="false"
             role="combobox"
             value={this.state.filter}
-            onChange={this.handleChange}
+            onChange={this._handleChange}
             onKeyDown={this._handleKeyDown}
             style={{ position: "relative", verticalAlign: "top" }}
           />
           <InputGroup.Append>
-            <Button variant="outline-secondary">Pesquisar</Button>
+            <Button
+              variant="info outline-secondary"
+              onClick={this._handleClick}
+            >
+              Pesquisar
+            </Button>
           </InputGroup.Append>
         </InputGroup>
         <h1>{this.state.mensagem}</h1>
