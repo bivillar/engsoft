@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
-import { Router, Link } from "react-router-dom";
 import Title from "../Title";
 
 class allslides extends Component {

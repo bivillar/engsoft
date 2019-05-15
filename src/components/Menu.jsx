@@ -4,7 +4,7 @@ import { Navbar, Nav } from "react-bootstrap";
 class menu extends Component {
   render() {
     return (
-      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="info" variant="dark">
         <Navbar.Brand href="/">Slide Search</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">

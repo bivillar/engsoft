@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Form, FormControl, Button } from "react-bootstrap";
 import Title from "../Title";
 
 class about extends Component {
