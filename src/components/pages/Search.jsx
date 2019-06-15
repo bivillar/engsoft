@@ -6,14 +6,21 @@ import Filter from "../Filter";
 class search extends Component {
   state = {
     title: "Search",
-    subtitle: "Pesquise qualquer palavra nos slides da matéria"
+    subtitle: "Pesquise qualquer palavra nos slides da matéria",
+    slidesEncontrados: {}
+  };
+
+  _handleSearch = e => {
+    this.setState({
+      slidesEncontrados: e.target.value
+    });
   };
 
   render() {
     return (
       <React.Fragment>
         <Title title={this.state.title} subtitle={this.state.subtitle} />
-        <Filter />
+        <Filter onSearch={this._handleSearch} />
       </React.Fragment>
     );
   }

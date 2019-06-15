@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Title from "../Title";
 import Slidecard from "../SlideCard";
-import { CardDeck, Card } from "react-bootstrap";
+import { CardColumns, CardDeck, CardGroup, Card } from "react-bootstrap";
 import Aula1 from "../../images/Aula1.jpg";
 import Aula2 from "../../images/Aula2.jpg";
 import Aula3 from "../../images/Aula3.jpg";
@@ -25,6 +25,21 @@ class allslides extends Component {
         name: "Aula 3",
         image: Aula3,
         num: 3
+      },
+      {
+        name: "Aula 4",
+        image: Aula3,
+        num: 4
+      },
+      {
+        name: "Aula 5",
+        image: Aula3,
+        num: 5
+      },
+      {
+        name: "Aula 6",
+        image: Aula3,
+        num: 6
       }
     ]
   };
@@ -33,11 +48,17 @@ class allslides extends Component {
     return (
       <React.Fragment>
         <Title title={this.state.title} subtitle={this.state.subtitle} />
-        <CardDeck className="container">
-          {this.state.slides.map(slide => (
-            <Slidecard image={slide.image} name={slide.name} num={slide.num} />
-          ))}
-        </CardDeck>
+        <div className="container">
+          <CardColumns>
+            {this.state.slides.map(slide => (
+              <Slidecard
+                image={slide.image}
+                name={slide.name}
+                num={slide.num}
+              />
+            ))}
+          </CardColumns>
+        </div>
       </React.Fragment>
     );
   }

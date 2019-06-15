@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
+import API from "../services/api";
 
 class Filter extends Component {
   state = {
@@ -14,6 +15,7 @@ class Filter extends Component {
     this.state = {
       filter: ""
     };
+    this.search = this.search.bind(this);
   }
 
   _handleChange = e => {
@@ -32,62 +34,39 @@ class Filter extends Component {
     this.search();
   };
 
-  busca(fruit) {
-    var promise = new Promise((resolve, reject) => {
-      if (this.slides.length > 0) {
-        this.slides.forEach((slide, index) => {
-          if (slide.toUpperCase() === fruit.toUpperCase()) {
-            resolve(index + 1);
-          }
-        });
-        resolve(-1);
-      } else {
-        reject(Error("Array vazio"));
-      }
-    });
-    return promise;
-  }
-
   search() {
-    this.busca(this.state.filter).then(value => {
-      if (value >= 0) {
-        this.setState({
-          mensagem: "achou " + value
-        });
-      } else {
-        this.setState({
-          mensagem: "nao achou"
-        });
+    API.get("search/", {
+      params: {
+        term: this.state.filter
       }
+    }).then(result => {
+      console.log(result);
     });
   }
 
   render() {
     return (
-      <div className="container">
-        <InputGroup className="mb-3">
-          <FormControl
-            placeholder="Insira uma palavra ou frase..."
-            type="text"
-            id="slides-search"
-            className="form-control ds-input"
-            autoComplete="off"
-            apellcheck="false"
-            role="combobox"
-            value={this.state.filter}
-            onChange={this._handleChange}
-            onKeyDown={this._handleKeyDown}
-            style={{ position: "relative", verticalAlign: "top" }}
-          />
-          <InputGroup.Append>
-            <Button
-              variant="info outline-secondary"
-              onClick={this._handleClick}
-            >
-              Pesquisar
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>
+      <div className='container'>
+        <form onSubmit={this.search()}>
+          <InputGroup className='mb-3'>
+            <FormControl
+              placeholder='Insira uma palavra ou frase...'
+              type='text'
+              id='slides-search'
+              className='form-control ds-input'
+              autoComplete='off'
+              apellcheck='false'
+              role='combobox'
+              value={this.state.filter}
+              style={{ position: "relative", verticalAlign: "top" }}
+            />
+            <InputGroup.Append>
+              <Button type='submit' variant='info outline-secondary'>
+                Pesquisar
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+        </form>
         <h1>{this.state.mensagem}</h1>
       </div>
     );
