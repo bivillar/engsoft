@@ -5,10 +5,9 @@ import API from "../services/api";
 class Filter extends Component {
   state = {
     filter: "",
-    mensagem: ""
+    slides: [],
+    mensagem: "Pesquise"
   };
-
-  slides = ["pera", "maça", "abacaxi", "uva", "melancia"];
 
   constructor(props) {
     super(props);
@@ -39,7 +38,10 @@ class Filter extends Component {
         term: this.state.filter
       }
     }).then(result => {
-      console.log(result);
+      this.setState({
+        slides: result.data
+      });
+      console.log(this.state.slides);
     });
   }
 
@@ -69,7 +71,15 @@ class Filter extends Component {
             </Button>
           </InputGroup.Append>
         </InputGroup>
-        <h1>{this.state.mensagem}</h1>
+        {this.state.slides ? (
+          <ul>
+            {this.state.slides.map(slide => (
+              <li>{slide.title}</li>
+            ))}
+          </ul>
+        ) : (
+          <h1>{this.state.mensagem}</h1>
+        )}
       </div>
     );
   }
