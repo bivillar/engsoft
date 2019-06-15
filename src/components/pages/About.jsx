@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Title from "../Title";
+import Menu from "../Menu";
 
 class about extends Component {
   state = {
@@ -10,6 +11,7 @@ class about extends Component {
   render() {
     return (
       <React.Fragment>
+        <Menu />
         <Title title={this.state.title} subtitle={this.state.subtitle} />
       </React.Fragment>
     );

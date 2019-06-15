@@ -32,6 +32,10 @@ a {
   color: black !important;
 }
 
+.login {
+  width: 50% !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -3,6 +3,7 @@ import Title from "../Title";
 import Slidecard from "../SlideCard";
 import { CardColumns } from "react-bootstrap";
 import API from "../../services/api";
+import Menu from "../Menu";
 
 class allslides extends Component {
   state = {
@@ -26,6 +27,7 @@ class allslides extends Component {
   render() {
     return (
       <React.Fragment>
+        <Menu />
         <Title title={this.state.title} subtitle={this.state.subtitle} />
         <div className='container'>
           <CardColumns>

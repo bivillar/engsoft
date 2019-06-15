@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Title from "../Title";
 import Filter from "../Filter";
+import Menu from "../Menu";
 
 class search extends Component {
   state = {
@@ -18,6 +19,7 @@ class search extends Component {
   render() {
     return (
       <React.Fragment>
+        <Menu />
         <Title title={this.state.title} subtitle={this.state.subtitle} />
         <Filter onSearch={this._handleSearch} />
       </React.Fragment>

@@ -13,8 +13,6 @@ class App extends Component {
     return (
       <React.Fragment>
         <Router>
-          <Menu />
-
           <Switch>
             <PrivateRoute exact path='/' component={Search} />
             <PrivateRoute exact path='/allslides' component={Allslides} />
