@@ -3,14 +3,17 @@ import { Card } from "react-bootstrap";
 
 class SlideCard extends Component {
   render() {
+    const { image, num, link } = this.props;
     return (
       <React.Fragment>
-        <Card bg="info">
-          <Card.Img variant="top" src={this.props.image} />
-          <Card.Body>
-            <Card.Title>Aula {this.props.num}</Card.Title>
-          </Card.Body>
-        </Card>
+        <a href={link} target='_blank' rel='noopener noreferrer'>
+          <Card bg='info'>
+            <Card.Img variant='top' src={image} />
+            <Card.Body>
+              <Card.Title>Aula {num}</Card.Title>
+            </Card.Body>
+          </Card>
+        </a>
       </React.Fragment>
     );
   }

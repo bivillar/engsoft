@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { InputGroup, FormControl, Button } from "react-bootstrap";
 import API from "../services/api";
+import SearchCard from "./SearchCard";
 
 class Filter extends Component {
   state = {
@@ -41,7 +42,6 @@ class Filter extends Component {
       this.setState({
         slides: result.data
       });
-      console.log(this.state.slides);
     });
   }
 
@@ -72,11 +72,9 @@ class Filter extends Component {
           </InputGroup.Append>
         </InputGroup>
         {this.state.slides ? (
-          <ul>
-            {this.state.slides.map(slide => (
-              <li>{slide.title}</li>
-            ))}
-          </ul>
+          this.state.slides.map(slide => (
+            <SearchCard slide={slide} key={slide.id} />
+          ))
         ) : (
           <h1>{this.state.mensagem}</h1>
         )}

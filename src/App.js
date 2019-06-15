@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Search from "./components/pages/Search";
 import Menu from "./components/Menu";
 import Allslides from "./components/pages/Allslides";
@@ -14,9 +14,9 @@ class App extends Component {
           <Menu />
 
           <Switch>
-            <Route exact path="/" component={Search} />
-            <Route exact path="/allslides" component={Allslides} />
-            <Route exact path="/about" component={About} />
+            <Route exact path='/' component={Search} />
+            <Route exact path='/allslides' component={Allslides} />
+            <Route exact path='/about' component={About} />
           </Switch>
         </Router>
       </React.Fragment>
