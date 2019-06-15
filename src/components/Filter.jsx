@@ -15,7 +15,6 @@ class Filter extends Component {
     this.state = {
       filter: ""
     };
-    this.search = this.search.bind(this);
   }
 
   _handleChange = e => {
@@ -47,26 +46,29 @@ class Filter extends Component {
   render() {
     return (
       <div className='container'>
-        <form onSubmit={this.search()}>
-          <InputGroup className='mb-3'>
-            <FormControl
-              placeholder='Insira uma palavra ou frase...'
-              type='text'
-              id='slides-search'
-              className='form-control ds-input'
-              autoComplete='off'
-              apellcheck='false'
-              role='combobox'
-              value={this.state.filter}
-              style={{ position: "relative", verticalAlign: "top" }}
-            />
-            <InputGroup.Append>
-              <Button type='submit' variant='info outline-secondary'>
-                Pesquisar
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </form>
+        <InputGroup className='mb-3'>
+          <FormControl
+            placeholder='Insira uma palavra ou frase...'
+            type='text'
+            id='slides-search'
+            className='form-control ds-input'
+            autoComplete='off'
+            apellcheck='false'
+            role='combobox'
+            value={this.state.filter}
+            onChange={this._handleChange}
+            onKeyDown={this._handleKeyDown}
+            style={{ position: "relative", verticalAlign: "top" }}
+          />
+          <InputGroup.Append>
+            <Button
+              variant='info outline-secondary'
+              onClick={this._handleClick}
+            >
+              Pesquisar
+            </Button>
+          </InputGroup.Append>
+        </InputGroup>
         <h1>{this.state.mensagem}</h1>
       </div>
     );
