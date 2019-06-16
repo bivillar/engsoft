@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { InputGroup, FormControl, Button } from "react-bootstrap";
+import {
+  InputGroup,
+  FormControl,
+  Button,
+  Spinner,
+  Alert
+} from "react-bootstrap";
 import API from "../services/api";
 import SearchCard from "./SearchCard";
 
@@ -7,7 +13,8 @@ class Filter extends Component {
   state = {
     filter: "",
     slides: [],
-    mensagem: "Pesquise"
+    loading: false,
+    noSlides: false
   };
 
   constructor(props) {
@@ -34,20 +41,29 @@ class Filter extends Component {
   };
 
   search() {
-    API.get("search/", {
-      params: {
-        term: this.state.filter
-      }
-    }).then(result => {
-      this.setState({
-        slides: result.data
+    this.setState({ loading: true, slides: [] });
+    if (this.state.filter.length > 0) {
+      API.get("search/", {
+        params: {
+          term: this.state.filter
+        }
+      }).then(result => {
+        this.setState({
+          slides: result.data,
+          loading: false,
+          noSlides: result.data.length > 0 ? false : true
+        });
+        console.log(this.state);
       });
-    });
+    } else {
+      this.setState({ loading: false });
+    }
   }
 
   render() {
+    const { filter, slides, loading, noSlides } = this.state;
     return (
-      <div className='container'>
+      <div>
         <InputGroup className='mb-3'>
           <FormControl
             placeholder='Insira uma palavra ou frase...'
@@ -57,7 +73,7 @@ class Filter extends Component {
             autoComplete='off'
             apellcheck='false'
             role='combobox'
-            value={this.state.filter}
+            value={filter}
             onChange={this._handleChange}
             onKeyDown={this._handleKeyDown}
             style={{ position: "relative", verticalAlign: "top" }}
@@ -71,13 +87,19 @@ class Filter extends Component {
             </Button>
           </InputGroup.Append>
         </InputGroup>
-        {this.state.slides ? (
-          this.state.slides.map(slide => (
-            <SearchCard slide={slide} key={slide.id} />
-          ))
-        ) : (
-          <h1>{this.state.mensagem}</h1>
+        {loading && (
+          <div align='center' className='pb-5 pr-5 pl-5 pt-3' id='slides'>
+            <Spinner animation='border' variant='info' />
+          </div>
         )}
+
+        {slides && slides.length > 0
+          ? slides.map(slide => <SearchCard slide={slide} key={slide.id} />)
+          : noSlides && (
+              <Alert variant='warning'>
+                Não existem slides com a frase "{filter}"
+              </Alert>
+            )}
       </div>
     );
   }

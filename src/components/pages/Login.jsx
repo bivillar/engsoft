@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Auth from "../../services/auth";
 import { authHeader } from "../../services/auth-header";
 import Menu from "../Menu";
+import { Alert, Spinner } from "react-bootstrap";
 
 var md5 = require("md5");
 const qs = require("qs");
@@ -55,27 +56,18 @@ class login extends Component {
         };
         this.props.history.push(from);
       },
-      error => this.setState({ error: "Sem acesso", loading: false })
+      error =>
+        this.setState({ error: "Senha ou Login inválidos", loading: false })
     );
-
-    // userService.login(username, password).then(
-    //   user => {
-    //     const { from } = this.props.location.state || {
-    //       from: { pathname: "/" }
-    //     };
-    //     this.props.history.push(from);
-    //   },
-    //   error => this.setState({ error, loading: false })
-    // );
   }
 
   render() {
     const { username, password, submitted, loading, error } = this.state;
     return (
-      <React.Fragment>
+      <React.Fragment id='login'>
         <Menu />
         <div className='container login'>
-          <div className='alert alert-info '>Insira seu login e senha</div>
+          <div className='alert alert-info '>Insira seu usuário e senha</div>
           <h2>Login</h2>
           <form name='form' onSubmit={this.handleSubmit}>
             <div
@@ -83,16 +75,22 @@ class login extends Component {
                 "form-group" + (submitted && !username ? " has-error" : "")
               }
             >
-              <label htmlFor='username'>Username</label>
+              <label htmlFor='username'>Usuário</label>
               <input
                 type='text'
                 className='form-control'
                 name='username'
                 value={username}
                 onChange={this.handleChange}
+                required
               />
               {submitted && !username && (
-                <div className='help-block'>Username is required</div>
+                <div
+                  className='help-block'
+                  style={{ color: "red", fontSize: "12px" }}
+                >
+                  Usuário é necessário
+                </div>
               )}
             </div>
             <div
@@ -100,27 +98,32 @@ class login extends Component {
                 "form-group" + (submitted && !password ? " has-error" : "")
               }
             >
-              <label htmlFor='password'>Password</label>
+              <label htmlFor='password'>Senha</label>
               <input
                 type='password'
                 className='form-control'
                 name='password'
                 value={password}
                 onChange={this.handleChange}
+                required
               />
               {submitted && !password && (
-                <div className='help-block'>Password is required</div>
+                <div
+                  className='help-block'
+                  style={{ color: "red", fontSize: "12px" }}
+                >
+                  Senha é necessária
+                </div>
               )}
             </div>
             <div className='form-group'>
-              <button className='btn btn-primary' disabled={loading}>
+              <button className='btn btn-info' disabled={loading}>
                 Login
               </button>
-              {loading && (
-                <img src='data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==' />
-              )}
+              {"            "}
+              {loading && <Spinner animation='border' variant='info' />}
             </div>
-            {error && <div>{error}</div>}
+            {error && <Alert variant='danger'>{error}</Alert>}
           </form>
         </div>
       </React.Fragment>

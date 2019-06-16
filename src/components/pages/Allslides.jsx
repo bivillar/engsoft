@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Title from "../Title";
 import Slidecard from "../SlideCard";
-import { CardColumns } from "react-bootstrap";
+import { CardColumns, Container, Spinner } from "react-bootstrap";
 import API from "../../services/api";
 import Menu from "../Menu";
 
@@ -9,29 +9,38 @@ class allslides extends Component {
   state = {
     title: "Todos os Slides",
     subtitle: "Abaixo estão todos os slides da matéria",
-    slides: []
+    slides: [],
+    loading: true
   };
 
   componentDidMount() {
+    this.setState({ loading: true });
     API.get("search/", {
       params: {
         term: ""
       }
     }).then(result => {
       this.setState({
-        slides: result.data
+        slides: result.data,
+        loading: false
       });
     });
   }
 
   render() {
+    const { title, subtitle, slides, loading } = this.state;
     return (
       <React.Fragment>
         <Menu />
-        <Title title={this.state.title} subtitle={this.state.subtitle} />
-        <div className='container'>
+        <Container>
+          <Title title={title} subtitle={subtitle} />
+          {loading && (
+            <div align='center' class='pb-5 pr-5 pl-5 pt-3' id='slides'>
+              <Spinner animation='border' variant='info' />
+            </div>
+          )}
           <CardColumns>
-            {this.state.slides.map(slide => (
+            {slides.map(slide => (
               <Slidecard
                 key={slide.id}
                 image={slide.thumbnail}
@@ -40,7 +49,7 @@ class allslides extends Component {
               />
             ))}
           </CardColumns>
-        </div>
+        </Container>
       </React.Fragment>
     );
   }

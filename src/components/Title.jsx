@@ -5,10 +5,10 @@ class title extends Component {
   render() {
     return (
       <Jumbotron fluid>
-        <Container>
-          <h1>{this.props.title}</h1>
-          <p>{this.props.subtitle}</p>
-        </Container>
+        {/* <Container> */}
+        <h1>{this.props.title}</h1>
+        <p>{this.props.subtitle}</p>
+        {/* </Container> */}
       </Jumbotron>
     );
   }
