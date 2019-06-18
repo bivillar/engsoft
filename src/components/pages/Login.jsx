@@ -44,7 +44,7 @@ class login extends Component {
     Auth.post(
       "auth/",
       qs.stringify({
-        username: username,
+        username: username.toLowerCase(),
         password: md5(password).toUpperCase()
       })
     ).then(
