@@ -116,12 +116,13 @@ class login extends Component {
                 </div>
               )}
             </div>
-            <div className='form-group'>
+            <div className='form-group vertical-center'>
               <button className='btn btn-info' disabled={loading}>
                 Login
               </button>
-              {"            "}
-              {loading && <Spinner animation='border' variant='info' />}
+              {loading && (
+                <Spinner className='m-8' animation='border' variant='info' />
+              )}
             </div>
             {error && <Alert variant='danger'>{error}</Alert>}
           </form>

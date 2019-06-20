@@ -9,14 +9,14 @@ class SearchCard extends Component {
         <a href={slide.pdf} target='_blank' rel='noopener noreferrer'>
           <Card.Header border='info'>Slide {slide.id - 1}</Card.Header>
           <Row>
-            <Col lg={3} md={3} sm={3}>
+            <Col lg={3} md={3} sm={3} className='width-none'>
               <Card.Img
-                style={{ maxWidth: "10rem" }}
+                className='image'
                 variant='left'
                 src={slide.thumbnail}
               />
             </Col>
-            <Col lg={9} md={9} sm={9}>
+            <Col lg={9} md={9} sm={9} className='width-none'>
               Páginas:
               {slide.slides.map(page => (
                 <span key={page.num_page}> {page.num_page} </span>

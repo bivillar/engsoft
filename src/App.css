@@ -41,7 +41,7 @@ a {
   color: black !important;
 }
 
-@media screen and (min-width:800px) {
+@media screen and (min-width: 800px) {
   .login {
     width: 50% !important;
   }
@@ -70,6 +70,25 @@ a {
 .jumbotron {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+.m-8 {
+  margin: 10px !important;
+}
+
+.image {
+  border: 1px solid #e2e2e2;
+  border-radius: 4px;
+  width: 150px;
+}
+
+.width-none {
+  width: auto !important;
 }
 
 @keyframes App-logo-spin {
